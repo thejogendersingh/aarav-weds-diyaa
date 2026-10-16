@@ -629,3 +629,29 @@ function handleRsvpSubmit(e) {
     }, 600);
   }
 }
+
+// ============================================================================
+// 10. SMOOTH SCROLL REVEAL OBSERVER
+// ============================================================================
+document.addEventListener('DOMContentLoaded', () => {
+  const revealElements = document.querySelectorAll('.scroll-reveal');
+  
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      rootMargin: '0px 0px -40px 0px',
+      threshold: 0.08
+    });
+
+    revealElements.forEach((el) => observer.observe(el));
+  } else {
+    revealElements.forEach((el) => el.classList.add('is-visible'));
+  }
+});
+
